@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Estoque</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    <div class="container">
+        <h1> Estoque </h1>
+        <table class="table table-striped">
+            <thead>
+                <th scope ="col">#</th>
+                <th scope ="col">Registro</th>
+                <th scope ="col">Nome</th>
+                <th scope ="col">CA</th>
+                <th scope ="col">Categoria</th>
+                <th scope ="col">Estoque</th>
+                <th scope ="col">Estoque Minimo</th>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                    <tr>
+                        <td scope="row">{{ produto.id }}</td>
+                        <td scope="row">{{ produto.registro }}</td>
+                        <td scope="row">{{ produto.nome }}</td>
+                        <td scope="row">{{ produto.ca }}</td>
+                        <td scope="row">{{ produto.categoria }}</td>
+                        <td scope="row">{{ produto.qtd_estoque }}</td>
+                        <td scope="row">{{ produto.qtd_estoque_min }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>

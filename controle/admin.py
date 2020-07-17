@@ -19,10 +19,12 @@ class CustomUsuarioAdmin(UserAdmin):
         ('Datas Importantes', {'fields': ('last_login', 'date_joined')}),
     )
 
+@admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('registro', 'nome', 'ca', 'categoria')
+    list_display = ('registro', 'nome', 'ca', 'categoria', 'qtd_estoque', 'qtd_estoque_min')
+
+@admin.register(Compra)
+class CompraAdmin(admin.ModelAdmin):
+    list_display = ('produto', 'qtd_compra')
 
 
-admin.site.register(Produto)
-
-admin.site.register(Compra)
