@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.template import context
 
@@ -9,35 +9,41 @@ def index(request):
     return render(request, 'index.html')
 
 def produto(request):
-    if str(request.method) == 'POST':
-        form = ProdutoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
+    if str(request.user) != 'AnonymousUser':
+        if str(request.method) == 'POST':
+            form = ProdutoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
 
-            messages.success(request, 'Produto salvo com sucesso.')
+                messages.success(request, 'Produto salvo com sucesso.')
+            else:
+                messages.error(request, 'Erro ao salvar o produto.')
         else:
-            messages.error(request, 'Erro ao salvar o produto.')
+            form = ProdutoForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'produto.html', context)
     else:
-        form = ProdutoForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'produto.html', context)
+        return redirect('index')
 
 def compra(request):
-    if str(request.method) == 'POST':
-        form = CompraForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Compra salva com sucesso.')
+    if str(request.user) != 'AnonymousUser':
+        if str(request.method) == 'POST':
+            form = CompraForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Compra salva com sucesso.')
+            else:
+                messages.error(request, 'Erro ao salvar a compra.')
         else:
-            messages.error(request, 'Erro ao salvar a compra.')
+            form = CompraForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'compra.html', context)
     else:
-        form = CompraForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'compra.html', context)
+        return redirect('index')
 
 def estoque(request):
     context = {
@@ -53,4 +59,3 @@ def comprasrealizadas(request):
 
 def cadastro(request):
     return render(request, 'cadastro.html')
-

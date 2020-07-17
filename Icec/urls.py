@@ -26,3 +26,7 @@ urlpatterns = [
     # path('', TemplateView.as_view(template_name='index.html'), name='index'),
     # path('produto', TemplateView(template_name='produto.html'), name='produto'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = 'ICEC'
+admin.site.site_tittle = 'ICEC - Soluções para a industria da construção.'
+admin.site.index_title = 'Sistema de Gerenciamento Estoque / Compra'
