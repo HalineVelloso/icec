@@ -1,6 +1,7 @@
 from django.db import models
 # from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib import messages
 
 # Create your models here.
 class UsuarioManager(BaseUserManager):
@@ -74,4 +75,20 @@ class Compra(models.Model):
 
     def __str__(self):
         return f'{self.produto_id} - {self.qtd_compra}'
+
+class Retirada(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    qtd_retirada = models.IntegerField('Quantidade retirada')
+
+    def save(self, *args, **kwargs):
+        super(Retirada, self).save(*args, **kwargs)
+        estoque = Produto.objects.get(id=self.produto.id)
+        if estoque.qtd_estoque >= self.qtd_retirada:
+            estoque.qtd_estoque -= self.qtd_retirada
+            estoque.save()
+        else:
+            raise Exception('Estoque indisponivel.')
+
+    def __str__(self):
+        return f'{self.produto_id} - {self.qtd_retirada}'
 

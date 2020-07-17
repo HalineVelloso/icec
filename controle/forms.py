@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from .models import CustomUsuario
-from .models import Produto, Compra
+from .models import Produto, Compra, Retirada
 
 class CustomUsuarioCreateForm(UserCreationForm):
 
@@ -36,3 +36,10 @@ class CompraForm(forms.ModelForm):
     class Meta:
         model = Compra
         fields = ['produto', 'qtd_compra']
+
+class RetiradaForm(forms.ModelForm):
+
+    class Meta:
+        model = Retirada
+        fields = ['produto', 'qtd_retirada']
+

@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.template import context
 
-from .forms import ProdutoForm, CompraForm
-from .models import Produto, Compra
+from .forms import ProdutoForm, CompraForm, RetiradaForm
+from .models import Produto, Compra, Retirada
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -42,6 +42,25 @@ def compra(request):
             'form': form
         }
         return render(request, 'compra.html', context)
+    else:
+        return redirect('index')
+
+def retirada(request):
+    if str(request.user) != 'AnonymousUser':
+        if str(request.method) == 'POST':
+            form = RetiradaForm(request.POST, request.FILES)
+            if form.is_valid():
+                try:
+                    form.save()
+                    messages.success(request, 'Retirada realizada com sucesso.')
+                except Exception as e:
+                    messages.error(request, e)
+        else:
+            form = RetiradaForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'retirada.html', context)
     else:
         return redirect('index')
 

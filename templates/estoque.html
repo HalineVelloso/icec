@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 {% for produto in produtos %}
-                    <tr>
+                    <tr class="{% if produto.qtd_estoque < produto.qtd_estoque_min %} table-danger{% endif %}">
                         <td scope="row">{{ produto.id }}</td>
                         <td scope="row">{{ produto.registro }}</td>
                         <td scope="row">{{ produto.nome }}</td>
