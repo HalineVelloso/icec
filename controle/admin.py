@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Produto, Compra
+from .models import Produto, Compra, Retirada
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUsuarioCreateForm, CustomUsuarioChangeForm
@@ -21,10 +21,14 @@ class CustomUsuarioAdmin(UserAdmin):
 
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('registro', 'nome', 'ca', 'categoria', 'qtd_estoque', 'qtd_estoque_min')
+    list_display = ('registro', 'nome', 'ca', 'categoria', 'qtd_estoque', 'qtd_estoque_min', 'data_cadastro', 'modificado_em')
 
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
-    list_display = ('produto', 'qtd_compra')
+    list_display = ('produto', 'qtd_compra', 'data_compra')
+
+@admin.register(Retirada)
+class RetiradaAdmin(admin.ModelAdmin):
+    list_display = ('produto', 'qtd_retirada', 'data_retirada')
 
 

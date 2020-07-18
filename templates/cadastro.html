@@ -1,16 +1,24 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de usuario</title>
+    {% bootstrap_css %}
+</head>
+<body>
+   <div class="container" >
+       <h1>Cadastro de usuario</h1>
+       {% bootstrap_messages %}
+       <form action="{% url 'cadastro' %}" method="post" class="form" autocomplete="off">
+           {% csrf_token %}
 
-{% extends 'base.html' %}
-{% block content %}
-    <div class="container">
-        <h1>TESTANDO COISAS</h1>
-        {% if user.is_anonymous %}
-           <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
-        {% else %}
-            <div class="alert alert-primary" role="alert">
-                Seja bem-vindo(a) {{ user.get_full_name }}!
-            </div>
-            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
-        {% endif %}
-    </div>
-{% endblock %}
+           {% bootstrap_form form %}
+           {% buttons %}
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+           {% endbuttons %}
+       </form>
+   </div>
+{% bootstrap_javascript jquery='full' %}
+</body>
 </html>

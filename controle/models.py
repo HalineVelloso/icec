@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 # from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib import messages
@@ -55,6 +56,12 @@ class Produto(models.Model):
     categoria = models.CharField('Categoria', max_length=100)
     qtd_estoque = models.IntegerField('Estoque')
     qtd_estoque_min = models.IntegerField('Estoque minimo')
+    data_cadastro = models.DateTimeField(default=timezone.now)
+    modificado_em = models.DateTimeField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        self.modificado_em = timezone.now()
+        super(Produto, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Produto'
@@ -66,6 +73,7 @@ class Produto(models.Model):
 class Compra(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     qtd_compra = models.IntegerField('Quantidade comprada')
+    data_compra = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
         super(Compra, self).save(*args, **kwargs)
@@ -79,6 +87,7 @@ class Compra(models.Model):
 class Retirada(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     qtd_retirada = models.IntegerField('Quantidade retirada')
+    data_retirada = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
         super(Retirada, self).save(*args, **kwargs)
