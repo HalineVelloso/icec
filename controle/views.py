@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.template import context
 
-from .forms import ProdutoForm, CompraForm, RetiradaForm
+from .forms import ProdutoForm, CompraForm, RetiradaForm, CustomUsuarioCreateForm
 from .models import Produto, Compra, Retirada
 # Create your views here.
 def index(request):
@@ -77,4 +77,19 @@ def comprasrealizadas(request):
     return render(request, 'comprasrealizadas.html', context)
 
 def cadastro(request):
-    return render(request, 'cadastro.html')
+    if str(request.user) != 'AnonymousUser':
+        if str(request.method) == 'POST':
+            form = CustomUsuarioCreateForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Cadastro realizado com sucesso.')
+            else:
+                messages.error(request, 'Erro ao realizar cadastro.')
+        else:
+            form = CustomUsuarioCreateForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'cadastro.html', context)
+    else:
+        return redirect('index')
