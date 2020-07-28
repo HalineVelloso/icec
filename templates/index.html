@@ -1,15 +1,69 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>ICEC</title>
+    <link rel="icon" href="https://i.ibb.co/mGbj6HR/iconeicec.png">
+    {% bootstrap_css %}
+</head>
+<body>
+    {%	include	"nav.html" %}
+<div class="container">
+<br>
+        <div class="progress" style="height: 2px;">
+  <div class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+ <br>
+    <div class="jumbotron">
+    {% if user.is_anonymous %}
+        <h1 class="display-4">Bem vindo(a)!</h1>
+        <p class="lead">Este é o sistema de controle de estoque da ICEC.</p>
+        <hr class="my-4">
+        <p>Faça seu login para poder ter acesso aos demais recursos.</p>            
+            <a class="btn btn-danger" href="{% url 'login' %}">Login</a>
+            {% else %}
+                <h1>
+                    Seja bem-vindo(a) {{ user.get_full_name }}!
+                </h1>
+        <p class="lead">Este é o sistema de controle de estoque da ICEC.</p>
+        <hr class="my-4">
+        <p>Não esquece de fazer logout caso não vá realizar mais nenhuma alteração</p> 
 
-{% extends 'base.html' %}
-{% block content %}
-    <div class="container">
-        <h1>ICEC</h1>
-        {% if user.is_anonymous %}
-           <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
-        {% else %}
-            <div class="alert alert-primary" role="alert">
-                Seja bem-vindo(a) {{ user.get_full_name }}!
-            </div>
-            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
-        {% endif %}
+                <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+    {% endif %}
     </div>
-{% endblock %}
+    <div class="progress" style="height: 2px;">
+  <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div><br>
+    <div class="row">
+        <div class="col-sm-6 ">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Site Oficial</h5>
+                <p class="card-text">Este é apenas um site para controle de estoque e compra, para acessar o site oficial é só clicar no link abaixo.</p>
+                <a href="https://www.icec.com.br/" class="btn btn-danger">Visitar</a>
+            </div>
+            </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Miro</h5>
+            <p class="card-text">O Miro é outra plataforma utilizada para o controle do estoque, para acessar o link da plataforma do Miro é só clicar no link abaixo.</p>
+            <a href="https://miro.com/app/board/o9J_kpGMJ5A=/?utm_source=notification&utm_medium=email&utm_campaign=daily-updates&utm_content=go-to-board" class="btn btn-danger">Visitar</a>
+        </div>
+        </div>
+    </div>
+</div><br>
+    <div class="progress" style="height: 2px;">
+  <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+</div>
+
+
+    {% include "rodape.html" %}
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>

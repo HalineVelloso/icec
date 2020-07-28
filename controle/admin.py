@@ -22,13 +22,16 @@ class CustomUsuarioAdmin(UserAdmin):
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ('registro', 'nome', 'ca', 'categoria', 'qtd_estoque', 'qtd_estoque_min', 'data_cadastro', 'modificado_em')
+    search_fields = ['nome']
 
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
     list_display = ('produto', 'qtd_compra', 'data_compra')
+    autocomplete_fields = ['produto']
 
 @admin.register(Retirada)
 class RetiradaAdmin(admin.ModelAdmin):
-    list_display = ('produto', 'qtd_retirada', 'data_retirada')
+    list_display = ('produto', 'setor_enviado', 'data_retirada')
+    autocomplete_fields = ['produto']
 
 

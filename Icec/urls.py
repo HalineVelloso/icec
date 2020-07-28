@@ -18,14 +18,19 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import handler404, handler500
+from controle import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('contas/', include('django.contrib.auth.urls')),
-    path('', include('controle.urls'))
-    # path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    # path('produto', TemplateView(template_name='produto.html'), name='produto'),
+    path('', include('controle.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+handler404 = views.error404
+handler500 = views.error500
 
 admin.site.site_header = 'ICEC'
 admin.site.site_tittle = 'ICEC - Soluções para a industria da construção.'

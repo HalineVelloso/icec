@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib import messages
 
 # Create your models here.
+
 class UsuarioManager(BaseUserManager):
 
     use_in_migrations = True
@@ -50,15 +51,15 @@ class CustomUsuario(AbstractUser):
     objects = UsuarioManager()
 
 class Produto(models.Model):
-    registro = models.CharField('ID', max_length=20, help_text='Máximo 20 caracteres')
+    registro = models.CharField('ID', max_length=20, help_text='Máximo 20 caracteres', unique=True)
     nome = models.CharField('Nome', max_length=255)
     ca = models.IntegerField('CA')
     categoria = models.CharField('Categoria', max_length=100)
     qtd_estoque = models.IntegerField('Estoque')
     qtd_estoque_min = models.IntegerField('Estoque minimo')
-    data_cadastro = models.DateTimeField(default=timezone.now)
-    modificado_em = models.DateTimeField(default=timezone.now)
-
+    data_cadastro = models.DateTimeField(default=timezone.now, editable=False)
+    modificado_em = models.DateTimeField(default=timezone.now, editable=False)
+    
     def save(self, *args, **kwargs):
         self.modificado_em = timezone.now()
         super(Produto, self).save(*args, **kwargs)
@@ -87,12 +88,13 @@ class Compra(models.Model):
 class Retirada(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     qtd_retirada = models.IntegerField('Quantidade retirada')
+    setor_enviado = models.CharField('Setor', max_length=100)
     data_retirada = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
-        super(Retirada, self).save(*args, **kwargs)
         estoque = Produto.objects.get(id=self.produto.id)
         if estoque.qtd_estoque >= self.qtd_retirada:
+            super(Retirada, self).save(*args, **kwargs)
             estoque.qtd_estoque -= self.qtd_retirada
             estoque.save()
         else:

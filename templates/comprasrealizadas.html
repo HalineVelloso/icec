@@ -5,11 +5,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Compras Realizadas</title>
+    <link rel="icon" href="https://i.ibb.co/mGbj6HR/iconeicec.png">
     {% bootstrap_css %}
 </head>
 <body>
+    {%	include	"nav.html" %}
     <div class="container">
+        <br>
+        <div class="progress" style="height: 2px;">
+  <div class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
         <h1> Compras Realizadas </h1>
+        
+
+        <div class="progress" style="height: 2px;">
+  <div class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<br>
         <table class="table table-striped">
             <thead>
                 <th scope ="col">#</th>
@@ -26,7 +38,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        {%	include	"pagination.html"	with	page=compras	%}
     </div>
+        {% include "rodape.html" %}
 {% bootstrap_javascript jquery='full' %}
 </body>
 </html>

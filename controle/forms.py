@@ -26,20 +26,22 @@ class CustomUsuarioChangeForm(UserChangeForm):
         fields = ('first_name', 'last_name', 'setor')
 
 class ProdutoForm(forms.ModelForm):
-
     class Meta:
         model = Produto
         fields = ['registro', 'nome', 'ca', 'categoria', 'qtd_estoque', 'qtd_estoque_min']
 
 class CompraForm(forms.ModelForm):
-
     class Meta:
         model = Compra
         fields = ['produto', 'qtd_compra']
+    
+    def __init__(self, *args, **kwargs):
+        super(CompraForm, self).__init__(*args, **kwargs)
+        self.fields['produto'].queryset = Produto.objects.filter()
 
 class RetiradaForm(forms.ModelForm):
 
     class Meta:
         model = Retirada
-        fields = ['produto', 'qtd_retirada']
+        fields = ['produto', 'setor_enviado', 'qtd_retirada']
 
