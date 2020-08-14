@@ -1,0 +1,1 @@
+gunicorn Icec.wsgi -b 0:8000
