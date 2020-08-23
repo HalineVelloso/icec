@@ -23,16 +23,15 @@
                 <div style="width: 800px; display: table-cell;">
                     <h1>Estoque</h1>
                 </div>
-                <div style="display: table-cell;">
-                    <form method="get">
-                        <div style="width: 100%; display: table;">
-                            <div style="display: table-row">
-                                <div style="width: 600px;  display: table-cell;"> {{ produto_filter.form.as_p }} </div>
-                                <div style="display: table-cell;"> <input type="submit" class="btn btn-danger" /> </div>
-                            </div>
+                <form method="get">
+                    <div class="input-group mb-3" style="width: 600px;">
+                        <input type="text" class="form-control border border-danger" id="nome" name="nome"
+                            placeholder="Nome" aria-label="Nome" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-danger" type="submit">Pesquisar</button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="progress" style="height: 2px;">

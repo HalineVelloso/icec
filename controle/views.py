@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.template import context
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .filters import ProdutoFilter
 from django.http import HttpResponse
 from django.template import loader
 
@@ -74,9 +73,10 @@ def retirada(request):
 
 def estoque(request):
     produto_list = Produto.objects.all().order_by('nome', 'categoria')
-    produto_filter = ProdutoFilter(request.GET, queryset=produto_list)
-    
-    paginator = Paginator(produto_filter.qs, 10)
+    name_filter = request.GET.get('nome')
+    produtos = produto_list.filter(nome__icontains=name_filter)
+
+    paginator = Paginator(produtos, 10)
     page = request.GET.get('page')
 
     try:
@@ -87,7 +87,7 @@ def estoque(request):
     except EmptyPage:
         produtos = paginator.page(paginator.num_pages)
     
-    return render(request, 'estoque.html', {'page':page,'produtos':produtos, 'produto_filter': produto_filter})
+    return render(request, 'estoque.html', {'page':page,'produtos':produtos})
     
 
 def comprasrealizadas(request):
