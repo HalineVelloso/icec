@@ -9,8 +9,13 @@ from .forms import ProdutoForm, CompraForm, RetiradaForm, CustomUsuarioCreateFor
 from .models import Produto, Compra, Retirada
 # Create your views here.
 def index(request):
-    ultimaCompra = Compra.objects.latest('id')
-    ultimaRetirada = Retirada.objects.last()
+    ultimaCompra = None
+    ultimaRetirada = None
+    try:
+        ultimaCompra = Compra.objects.latest('id')
+        ultimaRetirada = Retirada.objects.latest('id')
+    except Exception as e:
+        print(e)
     return render(request, 'index.html', {'ultimaCompra':ultimaCompra, 'ultimaRetirada':ultimaRetirada})
 
 def produto(request):
@@ -72,9 +77,10 @@ def retirada(request):
         return redirect('index')
 
 def estoque(request):
-    produto_list = Produto.objects.all().order_by('nome', 'categoria')
-    name_filter = request.GET.get('nome')
-    produtos = produto_list.filter(nome__icontains=name_filter)
+    produtos = Produto.objects.all().order_by('nome', 'categoria')
+    name_filter = request.GET.get('nome', None)
+    if name_filter:
+        produtos = produtos.filter(nome__icontains=name_filter)
 
     paginator = Paginator(produtos, 10)
     page = request.GET.get('page')

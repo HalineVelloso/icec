@@ -43,18 +43,22 @@
         </div><br>
         <div class="row">
             <div class="col-sm-6 ">
+                {% if ultimaCompra is not null %}
                 <div class="alert alert-success" role="alert">
                     <h4>Ultima Compra (#{{ ultimaCompra.id }})</h4>
                     Produto: {{ ultimaCompra.produto }} <br>
                     Quantidade: {{ ultimaCompra.qtd_compra }}
                 </div>
+                {% endif %}
             </div>
             <div class="col-sm-6">
+                {% if ultimaRetirada is not null %}
                 <div class="alert alert-danger" role="alert">
                     <h4>Ultima Retirada (#{{ ultimaRetirada.id }})</h4>
                     Produto: {{ ultimaRetirada.produto }} <br>
                     Quantidade: {{ ultimaRetirada.qtd_compra }}
                 </div>
+                {% endif %}
             </div>
         </div><br>
         <div class="progress" style="height: 2px;">
