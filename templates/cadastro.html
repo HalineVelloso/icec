@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de usuario</title>
+    <link rel="icon" href="https://i.ibb.co/mGbj6HR/iconeicec.png">
+    {% bootstrap_css %}
+</head>
+
+<body>
+    {%	include	"nav.html" %}
+    <div class="container">
+        <br>
+        <div class="progress" style="height: 2px;">
+            <div class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <h1>Cadastro de usuario</h1>
+        <div class="progress" style="height: 2px;">
+            <div class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <br>
+        {% bootstrap_messages %}
+        <form action="{% url 'cadastro' %}" method="post" class="form" autocomplete="off">
+            {% csrf_token %}
+
+            {% bootstrap_form form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-danger">Cadastrar</button>
+            {% endbuttons %}
+        </form>
+    </div>
+    {% include "rodape.html" %}
+    {% bootstrap_javascript jquery='full' %}
+</body>
+
+</html>
