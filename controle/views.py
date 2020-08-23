@@ -10,7 +10,9 @@ from .forms import ProdutoForm, CompraForm, RetiradaForm, CustomUsuarioCreateFor
 from .models import Produto, Compra, Retirada
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    ultimaCompra = Compra.objects.latest('id')
+    ultimaRetirada = Retirada.objects.last()
+    return render(request, 'index.html', {'ultimaCompra':ultimaCompra, 'ultimaRetirada':ultimaRetirada})
 
 def produto(request):
     if str(request.user) != 'AnonymousUser':

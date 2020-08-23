@@ -3,15 +3,16 @@
         <li class="page-item">
             {% if page.has_previous %}
             {% if 'nome' in request.get_full_path %}
-                <a class="page-link" href="{{ request.get_full_path }}&page={{page.previous_page_number}}" aria-label="Próximo">
-            {% else %}
+            <a class="page-link" href="{{ request.get_full_path }}&page={{page.previous_page_number}}"
+                aria-label="Próximo">
+                {% else %}
                 <a class="page-link" href="?page={{page.previous_page_number}}" aria-label="Próximo">
-            {% endif %}
-            
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Anterior</span>
-            </a>
-            {% endif %}
+                    {% endif %}
+
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                {% endif %}
         </li>
         <li class="page-item">
             <a class="page-link">Page {{page.number}} of {{page.paginator.num_pages}}</a>
@@ -19,15 +20,15 @@
         <li class="page-item">
             {% if page.has_next %}
             {% if 'nome' in request.get_full_path %}
-                <a class="page-link" href="{{ request.get_full_path }}&page={{page.next_page_number}}" aria-label="Próximo">
-            {% else %}
+            <a class="page-link" href="{{ request.get_full_path }}&page={{page.next_page_number}}" aria-label="Próximo">
+                {% else %}
                 <a class="page-link" href="?page={{page.next_page_number}}" aria-label="Próximo">
-            {% endif %}
-            
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Próximo</span>
-            </a>
-            {% endif %}
+                    {% endif %}
+
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Próximo</span>
+                </a>
+                {% endif %}
         </li>
     </ul>
 </nav>

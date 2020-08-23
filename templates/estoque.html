@@ -2,62 +2,71 @@
 {% load bootstrap4 %}
 {% load static %}
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Estoque</title>
     <link rel="icon" href="https://i.ibb.co/mGbj6HR/iconeicec.png">
     {% bootstrap_css %}
 </head>
+
 <body>
     {%	include	"nav.html" %}
     <div class="container">
-    <br>
+        <br>
         <div class="progress" style="height: 2px;">
-  <div class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-<div style="width: 100%; display: table;">
-    <div style="display: table-row">
-        <div style="width: 800px; display: table-cell;"><h1>Estoque</h1></div>
-        <div style="display: table-cell;"> <form method="get">
-<div style="width: 100%; display: table;">
-    <div style="display: table-row">
-        <div style="width: 600px;  display: table-cell;"> {{ produto_filter.form.as_p }} </div>
-        <div style="display: table-cell;"> <input type="submit" class="btn btn-danger"/> </div>
-    </div>
-</div>
-</form> </div>
-    </div>
-</div>
+            <div class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div style="width: 100%; display: table;">
+            <div style="display: table-row">
+                <div style="width: 800px; display: table-cell;">
+                    <h1>Estoque</h1>
+                </div>
+                <div style="display: table-cell;">
+                    <form method="get">
+                        <div style="width: 100%; display: table;">
+                            <div style="display: table-row">
+                                <div style="width: 600px;  display: table-cell;"> {{ produto_filter.form.as_p }} </div>
+                                <div style="display: table-cell;"> <input type="submit" class="btn btn-danger" /> </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="progress" style="height: 2px;">
-  <div class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div><br>
+            <div class="progress-bar bg-dark" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                aria-valuemin="0" aria-valuemax="100"></div>
+        </div><br>
         <table class="table table-striped">
             <thead>
-                <th scope ="col">#</th>
-                <th scope ="col">Registro</th>
-                <th scope ="col">Nome</th>
-                <th scope ="col">CA</th>
-                <th scope ="col">Categoria</th>
-                <th scope ="col">Estoque</th>
-                <th scope ="col">Estoque Minimo</th>
+                <th scope="col">#</th>
+                <th scope="col">Registro</th>
+                <th scope="col">Nome</th>
+                <th scope="col">CA</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Estoque</th>
+                <th scope="col">Estoque Minimo</th>
             </thead>
             <tbody>
                 {% for produto in produtos %}
-                    <tr class="{% if produto.qtd_estoque < produto.qtd_estoque_min %} table-danger{% endif %}">
-                        <td scope="row">{{ produto.id }}</td>
-                        <td scope="row">{{ produto.registro }}</td>
-                        <td scope="row">{{ produto.nome }}</td>
-                        <td scope="row">{{ produto.ca }}</td>
-                        <td scope="row">{{ produto.categoria }}</td>
-                        <td scope="row">{{ produto.qtd_estoque }}</td>
-                        <td scope="row">{{ produto.qtd_estoque_min }}</td>
-                    </tr>
+                <tr class="{% if produto.qtd_estoque < produto.qtd_estoque_min %} table-danger{% endif %}">
+                    <td scope="row">{{ produto.id }}</td>
+                    <td scope="row">{{ produto.registro }}</td>
+                    <td scope="row">{{ produto.nome }}</td>
+                    <td scope="row">{{ produto.ca }}</td>
+                    <td scope="row">{{ produto.categoria }}</td>
+                    <td scope="row">{{ produto.qtd_estoque }}</td>
+                    <td scope="row">{{ produto.qtd_estoque_min }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
         {%	include	"pagination.html"	with	page=produtos	%}
     </div>
     {% include "rodape.html" %}
-{% bootstrap_javascript jquery='full' %}
+    {% bootstrap_javascript jquery='full' %}
 </body>
+
 </html>
